@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+members = ["crates/noteboard"]
+
+[workspace.package]
+version = "0.5.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/conorbr/noteboard"

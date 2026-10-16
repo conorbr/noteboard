@@ -1,0 +1,6 @@
+# Build output
+/target
+
+# Local tooling
+.claude/
+.DS_Store

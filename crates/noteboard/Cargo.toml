@@ -1,0 +1,31 @@
+[package]
+name = "noteboard"
+description = "A mouse-friendly terminal kanban board for a folder of Markdown tickets"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+readme = "../../README.md"
+keywords = ["kanban", "tui", "markdown", "todo", "terminal"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "noteboard"
+path = "src/main.rs"
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+chrono = "0.4"
+clap = { version = "4.5", features = ["derive", "env"] }
+clap_complete = "4.5"
+dirs = "6.0"
+unicode-width = "0.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml_ng = "0.10"
+toml = "0.8"
+clap_mangen = "0.2"
+
+[dev-dependencies]
+tempfile = "3"

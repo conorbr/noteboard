@@ -1,0 +1,41 @@
+# Runs scripts/install.sh on real machines, against the latest release.
+name: Install script
+
+on:
+  push:
+    branches: [main]
+    paths: ["scripts/install.sh", ".github/workflows/install.yml"]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  install:
+    name: ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: ubuntu x86_64, os: ubuntu-latest }
+          - { name: ubuntu arm64, os: ubuntu-24.04-arm }
+          - { name: alpine (busybox sh), os: ubuntu-latest, container: "alpine:latest" }
+          - { name: macos arm64, os: macos-latest }
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    steps:
+      - name: Install curl (alpine)
+        if: matrix.container
+        run: apk add --no-cache curl
+
+      - uses: actions/checkout@v4
+
+      - name: Install with the script
+        run: NOTEBOARD_INSTALL_DIR="$PWD/bin" sh scripts/install.sh
+
+      - name: Run noteboard
+        run: |
+          ./bin/noteboard --version
+          test "$(ls -A bin)" = "noteboard"
+          mkdir board
+          ./bin/noteboard -C board add "Smoke test" -t ci
+          ./bin/noteboard -C board ls --json | grep -q '"id": "smoke-test"'
