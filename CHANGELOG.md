@@ -4,6 +4,8 @@ Notable changes to noteboard. Versions follow [semver](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-10-16
+
 ### Changed
 - Dependencies updated: ratatui 0.30, toml 1.1, dirs 7, clap 4.6, clap_mangen 0.3.
   The separate crossterm dependency is gone (ratatui provides it). Config files stay
