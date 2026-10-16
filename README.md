@@ -4,6 +4,9 @@ A TUI board tracker for people who aren't smart enough to just use vim.
 
 It's written in Rust because [DHH told me to](https://www.youtube.com/watch?v=vDjW_dRyKXY).
 
+<img width="2954" height="2058" alt="image" src="https://github.com/user-attachments/assets/ff5b3c68-43f7-49f9-8211-da89ae4f5d5b" />
+
+
 `noteboard` turns a folder of Markdown files into a mouse-friendly terminal kanban board.
 Each file is a ticket; its YAML front matter says which column it's in. There is no
 database — the folder *is* the board, so you can edit tickets in any editor, grep them,
