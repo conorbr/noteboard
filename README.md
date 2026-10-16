@@ -1,6 +1,6 @@
 # noteboard
 
-A TUI board tracker for people who aren't smart enough to just use vim.
+A mouse-friendly TUI board tracker for people who aren't smart enough to just use vim.
 
 It's written in Rust because [DHH told me to](https://www.youtube.com/watch?v=vDjW_dRyKXY).
 
