@@ -27,7 +27,7 @@ jobs:
         if: matrix.container
         run: apk add --no-cache curl
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install with the script
         run: NOTEBOARD_INSTALL_DIR="$PWD/bin" sh scripts/install.sh
