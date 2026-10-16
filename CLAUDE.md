@@ -86,6 +86,7 @@ Everything is in `crates/noteboard/src`.
 2. `git tag -a vX.Y.Z -m "noteboard X.Y.Z" && git push origin vX.Y.Z`. The Release
    workflow checks the tag matches `Cargo.toml`, builds macOS and Linux (arm64 and
    x86_64; Linux is static musl) and uploads `.tar.gz` + `.sha256` files.
+   To rehearse first without publishing: `gh workflow run release.yml -f tag=vX.Y.Z -f dry_run=true`.
 3. `gh workflow run install.yml` to try `scripts/install.sh` against the release
    (a release made by a workflow can't trigger other workflows itself).
 4. `just brew-formula X.Y.Z` writes `Formula/noteboard.rb` in `~/Developer/homebrew-tap`.

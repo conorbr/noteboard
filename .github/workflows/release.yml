@@ -1,6 +1,7 @@
 # Builds prebuilt binaries and attaches them to a GitHub Release.
 # Runs on a pushed `v*` tag, or by hand for an existing tag:
-#   gh workflow run release.yml -f tag=v0.4.0
+#   gh workflow run release.yml -f tag=v0.5.0
+# Add `-f dry_run=true` to build and collect everything without publishing.
 name: Release
 
 on:
@@ -9,8 +10,12 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Existing tag to build, e.g. v0.4.0"
+        description: "Existing tag to build, e.g. v0.5.0"
         required: true
+      dry_run:
+        description: "Build and collect the binaries, but don't publish"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -31,7 +36,7 @@ jobs:
           - { target: aarch64-unknown-linux-musl, os: ubuntu-24.04-arm }
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ env.TAG }}
 
@@ -65,7 +70,7 @@ jobs:
           tar -C dist -czf "dist/$name.tar.gz" "$name"
           (cd dist && shasum -a 256 "$name.tar.gz" > "$name.tar.gz.sha256")
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.target }}
           path: dist/*.tar.gz*
@@ -77,12 +82,16 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: dist
           merge-multiple: true
 
+      - name: List what would be published
+        run: ls -l dist && (cd dist && sha256sum -c *.sha256)
+
       - name: Publish
+        if: ${{ !inputs.dry_run }}
         run: |
           if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --verify-tag \

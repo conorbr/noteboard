@@ -1,6 +1,8 @@
 # noteboard
 
-A kanban board for a folder of Markdown tickets.
+A TUI board tracker for people who aren't smart enough to just use vim.
+
+It's written in Rust because [DHH told me to](https://www.youtube.com/watch?v=vDjW_dRyKXY).
 
 `noteboard` turns a folder of Markdown files into a mouse-friendly terminal kanban board.
 Each file is a ticket; its YAML front matter says which column it's in. There is no

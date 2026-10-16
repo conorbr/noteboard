@@ -4,6 +4,14 @@ Notable changes to noteboard. Versions follow [semver](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Dependencies updated: ratatui 0.30, toml 1.1, dirs 7, clap 4.6, clap_mangen 0.3.
+  The separate crossterm dependency is gone (ratatui provides it). Config files stay
+  where they were.
+- CI uses actions/checkout v7, upload-artifact v7 and download-artifact v8.
+- The Release workflow has a `dry_run` option that builds and checks everything
+  without publishing.
+
 ## [0.5.0] - 2026-10-16
 
 First release as a standalone, MIT-licensed project.
